@@ -4,6 +4,8 @@ from link_extractor import LinkExtractor
 from os.path import exists
 import click
 
+# TODO: Add mulit-threading
+# TODO: Add additional status codes
 
 @click.command()
 @click.option("--url", "-u", prompt="Enter the url", help="The URL to FUZZ. Required.")
@@ -15,6 +17,7 @@ def main(url, depth, wordlist, mode):
         print("No path to wordlist")
         exit(1)
     
+    # TODO: Add recursion
     discovered_dirs = [url]
     dir_fuzzer = Fuzzer(url, wordlist)
     discovered_dirs += dir_fuzzer.get_matching_dirs()
@@ -23,6 +26,7 @@ def main(url, depth, wordlist, mode):
     print(discovered_dirs)
     print(len(discovered_dirs))
 
+    # TODO: Logic error, change to if link starts with '/' add base URL, else add base URL + dir_path
     if mode == 1:
         for i in range(len(discovered_dirs)):
             le = LinkExtractor(discovered_dirs[i], depth)
